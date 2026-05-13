@@ -22,3 +22,20 @@ subprojects {
 tasks.register<Delete>("clean") {
     delete(rootProject.layout.buildDirectory)
 }
+
+subprojects {
+    afterEvaluate {
+        if (project.hasProperty("android")) {
+            val android = project.extensions.getByName("android")
+            try {
+                val namespaceMethod = android.javaClass.getMethod("setNamespace", String::class.java)
+                val getNamespaceMethod = android.javaClass.getMethod("getNamespace")
+                if (getNamespaceMethod.invoke(android) == null) {
+                    namespaceMethod.invoke(android, project.group.toString())
+                }
+            } catch (e: Exception) {
+                // Ignore if method not found
+            }
+        }
+    }
+}
