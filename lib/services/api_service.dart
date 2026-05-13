@@ -219,4 +219,21 @@ class APIService {
       return false;
     }
   }
+
+  // Sync monitoring log to backend
+  Future<bool> syncMonitoringLog(Map<String, dynamic> logData) async {
+    try {
+      final response = await post('/monitoring/logs', {
+        'log_type': logData['type'],
+        'sender': logData['sender'],
+        'content': logData['content'],
+        'timestamp': logData['timestamp'],
+        'package_name': logData['package_name'],
+        'device_info': 'Mobile App Isolate',
+      });
+      return response.statusCode == 201;
+    } catch (e) {
+      return false;
+    }
+  }
 }

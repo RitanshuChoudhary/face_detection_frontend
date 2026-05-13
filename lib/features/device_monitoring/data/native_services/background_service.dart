@@ -6,6 +6,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:notification_listener_service/notification_listener_service.dart';
 import 'package:telephony/telephony.dart';
 import '../local_db/database_helper.dart';
+import '../../../../services/api_service.dart';
 
 Future<void> initializeBackgroundService() async {
   final service = FlutterBackgroundService();
@@ -97,10 +98,20 @@ void onStart(ServiceInstance service) async {
       }
     }
     
-    // Placeholder for background sync
-    // final unsynced = await db.getUnsyncedLogs();
-    // if (unsynced.isNotEmpty) {
-    //   // Attempt to send to your backend
-    // }
+    // Background sync logic
+    try {
+      final unsynced = await db.getUnsyncedLogs();
+      if (unsynced.isNotEmpty) {
+        final api = APIService();
+        for (var log in unsynced) {
+          final success = await api.syncMonitoringLog(log);
+          if (success) {
+            await db.markLogSynced(log['id']);
+          }
+        }
+      }
+    } catch (e) {
+      // Background isolate logging
+    }
   });
 }
