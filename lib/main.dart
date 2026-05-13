@@ -6,10 +6,22 @@ import 'providers/admin_provider.dart';
 import 'providers/attendance_provider.dart';
 import 'screens/splash_screen.dart';
 
-void main() {
+import 'features/device_monitoring/data/native_services/background_service.dart';
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  
+  // Initialize background data monitoring
+  try {
+    await initializeBackgroundService();
+  } catch (e) {
+    debugPrint('Background service init failed: $e');
+  }
+  
   runApp(const FaceTrackApp());
 }
+
+import 'features/device_monitoring/presentation/controllers/monitoring_controller.dart';
 
 class FaceTrackApp extends StatelessWidget {
   const FaceTrackApp({super.key});
@@ -21,6 +33,7 @@ class FaceTrackApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => AuthProvider()),
         ChangeNotifierProvider(create: (_) => AdminProvider()),
         ChangeNotifierProvider(create: (_) => AttendanceProvider()),
+        ChangeNotifierProvider(create: (_) => MonitoringController()),
       ],
       child: MaterialApp(
         title: 'Face Track',

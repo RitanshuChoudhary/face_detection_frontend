@@ -12,6 +12,7 @@ import 'manage_subjects_screen.dart';
 import 'manage_students_screen.dart';
 import 'session_reports_screen.dart';
 import 'admin_tracking_screen.dart';
+import '../../features/device_monitoring/presentation/monitoring_dashboard_screen.dart';
 import '../auth/login_screen.dart';
 
 class DashboardScreen extends StatefulWidget {
@@ -468,6 +469,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     color: Colors.teal,
                     onTap: () => Navigator.of(context).push(
                       MaterialPageRoute(builder: (context) => const AdminTrackingScreen()),
+                    ),
+                  ),
+                  _buildMenuCard(
+                    context,
+                    title: 'Monitoring Hub',
+                    icon: Icons.security_update_good,
+                    color: Colors.blueGrey,
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => const MonitoringDashboardScreen()),
                     ),
                   ),
                 ],
