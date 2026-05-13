@@ -5,8 +5,8 @@ import 'providers/auth_provider.dart';
 import 'providers/admin_provider.dart';
 import 'providers/attendance_provider.dart';
 import 'screens/splash_screen.dart';
-
 import 'features/device_monitoring/data/native_services/background_service.dart';
+import 'features/device_monitoring/presentation/controllers/monitoring_controller.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,8 +20,6 @@ void main() async {
   
   runApp(const FaceTrackApp());
 }
-
-import 'features/device_monitoring/presentation/controllers/monitoring_controller.dart';
 
 class FaceTrackApp extends StatelessWidget {
   const FaceTrackApp({super.key});
