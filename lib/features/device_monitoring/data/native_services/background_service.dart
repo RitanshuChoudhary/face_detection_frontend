@@ -13,7 +13,7 @@ Future<void> initializeBackgroundService() async {
 
   // For Android, we need a notification channel for the foreground service
   const AndroidNotificationChannel channel = AndroidNotificationChannel(
-    'monitoring_channel', 
+    'monitoring_channel',
     'FaceTrack Monitoring',
     description: 'Running background data monitoring',
     importance: Importance.low,
@@ -23,7 +23,9 @@ Future<void> initializeBackgroundService() async {
       FlutterLocalNotificationsPlugin();
 
   await flutterLocalNotificationsPlugin
-      .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
+      .resolvePlatformSpecificImplementation<
+        AndroidFlutterLocalNotificationsPlugin
+      >()
       ?.createNotificationChannel(channel);
 
   await service.configure(
@@ -93,11 +95,12 @@ void onStart(ServiceInstance service) async {
       if (await service.isForegroundService()) {
         service.setForegroundNotificationInfo(
           title: "FaceTrack Monitoring",
-          content: "Last active: ${DateTime.now().hour}:${DateTime.now().minute}",
+          content:
+              "Last active: ${DateTime.now().hour}:${DateTime.now().minute}",
         );
       }
     }
-    
+
     // Background sync logic
     try {
       final unsynced = await db.getUnsyncedLogs();
