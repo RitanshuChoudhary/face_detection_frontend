@@ -183,7 +183,7 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
                   const Divider(),
                   const SizedBox(height: 12),
                   const Text(
-                    'Verification Window: 09:00 AM - 10:00 AM Daily',
+                    'Attendance is open daily',
                     style: TextStyle(color: AppConstants.textLight, fontSize: 13, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 24),
